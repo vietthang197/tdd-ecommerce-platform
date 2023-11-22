@@ -6,6 +6,15 @@ spring:
   threads:
     virtual:
       enabled: true
+  cloud:
+    gateway:
+      routes:
+        - id: core
+          uri: 'http://localhost:9001'
+          predicates:
+          - Path=/core/**
+          filters:
+          - StripPrefix=1
 eureka:
   client:
     registerWithEureka: true
@@ -18,4 +27,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health

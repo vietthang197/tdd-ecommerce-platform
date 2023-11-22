@@ -38,13 +38,18 @@ spring:
         search:
           backend:
             analysis:
-              configurer: com.blog.config.MyAnalysisConfigurer
+              configurer: 'com.blog.config.MyAnalysisConfigurer'
             directory:
-              type: local-filesystem
-              root: D:/apache_lucene/ecommerce
+              type: 'local-filesystem'
+              root: 'D:/apache_lucene/ecommerce'
     show-sql: true
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs'
 eureka:
   client:
     registerWithEureka: true
@@ -57,4 +62,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health

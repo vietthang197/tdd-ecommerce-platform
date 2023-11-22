@@ -13,7 +13,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health
 spring:
   threads:
     virtual:
