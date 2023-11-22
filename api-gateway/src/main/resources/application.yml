@@ -1,0 +1,21 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: api-gateway
+  threads:
+    virtual:
+      enabled: true
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+  instance:
+    hostname: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
