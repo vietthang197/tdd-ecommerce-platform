@@ -1,0 +1,265 @@
+{
+  "id": "01F9YCP2XPW25A1AKWK02X0GXT",
+  "name": "Hawt Like a Habanero Shirt (Men's)",
+  "uri": "/merchandise/hawt-like-a-habanero-shirt-mens",
+  "description": "<p>Men's Habanero collection standard short sleeve screen-printed tee shirt in soft 30 singles cotton in regular fit.</p>",
+  "sku": "ME-HS-WYRYTL",
+  "currency": "USD",
+  "pricingKey": "4622eedb-e23e-4393-9aad-15d9b8250fd4",
+  "defaultPrice": {
+    "amount": 14.99,
+    "currency": "USD"
+  },
+  "salePrice": null,
+  "cost": {
+    "amount": 4.99,
+    "currency": "USD"
+  },
+  "online": true,
+  "discountable": true,
+  "inventoryType": "PHYSICAL",
+  "availableOnline": true,
+  "inventoryCheckStrategy": "NEVER",
+  "inventoryReservationStrategy": "NEVER",
+  "eligibleForPickup": false,
+  "fulfillmentFlatRates": {},
+  "activeStartDate": "2023-02-03T23:49:06.912Z",
+  "searchable": true,
+  "individuallySold": true,
+  "merchandisingProduct": false,
+  "productType": "VARIANT_BASED",
+  "keywords": [],
+  "attributes": {},
+  "includedProducts": [],
+  "options": [
+    {
+      "id": "01FAN6Y7MGS115J271CSSY7Z7E",
+      "templateContextId": "01F9YCT1GV2DH61FCNJZDJ096R",
+      "label": "Color",
+      "type": "VARIANT_DISTINGUISHING",
+      "displayOrder": 100,
+      "itemChoice": {
+        "choiceKey": "01F9YCYF2R49370C8KTTNP0K9C",
+        "discountAllowed": false,
+        "specificChoices": []
+      },
+      "attributeChoice": {
+        "attributeName": "COLOR",
+        "type": "COLOR",
+        "required": true,
+        "allowedValues": [
+          {
+            "id": "01F9YCTCJMYHN11K45KNJN1ZP2",
+            "label": "Black",
+            "value": "black",
+            "displayOrder": 100
+          },
+          {
+            "id": "01F9YCTCJM55WQ1FBSS3V31V6P",
+            "label": "Red",
+            "value": "red",
+            "displayOrder": 200
+          },
+          {
+            "id": "01F9YCTCJMCXTH0AR5MV2A179E",
+            "label": "Silver",
+            "value": "silver",
+            "displayOrder": 300
+          }
+        ]
+      }
+    },
+    {
+      "id": "01FAK09E90N40W1MA9HGJA1R19",
+      "templateContextId": "01F9YCWF56J29P0B75CE9P1C5E",
+      "label": "Size",
+      "type": "VARIANT_DISTINGUISHING",
+      "displayOrder": 200,
+      "itemChoice": {
+        "choiceKey": "01F9YCY72WEMJB0SF61XX506VW",
+        "discountAllowed": false,
+        "specificChoices": []
+      },
+      "attributeChoice": {
+        "attributeName": "SIZE",
+        "type": "SIZE",
+        "required": true,
+        "allowedValues": [
+          {
+            "id": "01F9YCWF5YYCAZ0B0NB35G15P6",
+            "label": "S",
+            "value": "SMALL",
+            "displayOrder": 100
+          },
+          {
+            "id": "01F9YCWF5Y04TZ074DD1W51YST",
+            "label": "M",
+            "value": "MEDIUM",
+            "displayOrder": 200
+          },
+          {
+            "id": "01F9YCWF5Y9FC00FBWC46P0NMJ",
+            "label": "L",
+            "value": "LARGE",
+            "displayOrder": 300
+          },
+          {
+            "id": "01F9YCWF5Y7V6P1VVR9YW00ZFP",
+            "label": "XL",
+            "value": "EXTRA_LARGE",
+            "displayOrder": 400
+          }
+        ]
+      }
+    },
+    {
+      "id": "01FAK09E90N40W1MA9HGJA1R20",
+      "templateContextId": "01F9YCXVZRAZ0X1CAF8H891ASX",
+      "label": "Personalized Name",
+      "type": "CART_ITEM_ATTRIBUTE",
+      "displayOrder": 1000,
+      "attributeChoice": {
+        "attributeName": "NAME",
+        "type": "TEXT",
+        "required": false,
+        "allowedValues": []
+      }
+    }
+  ],
+  "reviewsSummary": {
+    "numberOfReviews": 0
+  },
+  "primaryAsset": {
+    "applicationId": "2",
+    "tenantId": "5DF1363059675161A85F576D",
+    "type": "IMAGE",
+    "provider": "BROADLEAF",
+    "url": "/habanero_mens_black.jpg",
+    "contentUrl": "https://images.blcdemo.com/api/asset/content/habanero_mens_black.jpg?contextRequest=%7B%22forceCatalogForFetch%22:false,%22applicationId%22:%222%22,%22tenantId%22:%225DF1363059675161A85F576D%22%7D",
+    "altText": "Black Hawt Like a Habanero Shirt (Men's)",
+    "tags": [
+      "color:black"
+    ],
+    "id": "01F9YDW1NZ802T14DE79350868",
+    "productId": "01F9YCP2XPW25A1AKWK02X0GXT",
+    "primary": true,
+    "sorted": false,
+    "contextState": {
+      "mutable": true,
+      "archived": false,
+      "fieldChanges": [],
+      "level": 100000,
+      "catalog": {
+        "contextId": "3",
+        "name": "HEAT_CLINIC_MASTER_CATALOG",
+        "locale": "en-US",
+        "level": 1
+      },
+      "sandbox": null,
+      "application": null,
+      "tenant": "5DF1363059675161A85F576D",
+      "customerContextId": null,
+      "baseCatalogId": "3",
+      "overrideCatalogId": null,
+      "sandboxChangeType": "CREATE"
+    },
+    "parentId": "01F9YCP2XPW25A1AKWK02X0GXT"
+  },
+  "primaryCategory": {
+    "id": "category3",
+    "name": "Merchandise",
+    "url": "/merchandise",
+    "externalId": "merchandiseExternalId",
+    "taxCode": "US",
+    "activeStartDate": "2023-02-03T23:49:06.912Z",
+    "displayTemplate": "DEFAULT",
+    "productMembershipType": "EXPLICIT",
+    "showInSiteMap": true,
+    "attributes": {},
+    "contextState": {
+      "mutable": true,
+      "archived": false,
+      "fieldChanges": [],
+      "level": 100000,
+      "catalog": {
+        "contextId": "3",
+        "name": "HEAT_CLINIC_MASTER_CATALOG",
+        "locale": "en-US",
+        "level": 1
+      },
+      "sandbox": null,
+      "application": null,
+      "tenant": "5DF1363059675161A85F576D",
+      "customerContextId": null,
+      "baseCatalogId": "3",
+      "overrideCatalogId": null,
+      "sandboxChangeType": null
+    }
+  },
+  "tags": [],
+  "merchandisingType": {
+    "id": "merchandisingType-shirts",
+    "type": "MERCHANDISING_TYPE",
+    "value": "SHIRTS",
+    "displayValue": "Shirts",
+    "contextState": {
+      "mutable": false,
+      "archived": false,
+      "fieldChanges": [],
+      "level": 100000,
+      "catalog": null,
+      "sandbox": null,
+      "application": null,
+      "tenant": "5DF1363059675161A85F576D",
+      "customerContextId": null,
+      "baseCatalogId": null,
+      "overrideCatalogId": null,
+      "sandboxChangeType": null
+    }
+  },
+  "targetDemographic": {
+    "id": "targetDemographic-men",
+    "type": "TARGET_DEMOGRAPHIC",
+    "value": "MEN",
+    "displayValue": "Men",
+    "contextState": {
+      "mutable": false,
+      "archived": false,
+      "fieldChanges": [],
+      "level": 100000,
+      "catalog": null,
+      "sandbox": null,
+      "application": null,
+      "tenant": "5DF1363059675161A85F576D",
+      "customerContextId": null,
+      "baseCatalogId": null,
+      "overrideCatalogId": null,
+      "sandboxChangeType": null
+    }
+  },
+  "contextState": {
+    "mutable": true,
+    "archived": false,
+    "fieldChanges": [],
+    "level": 100000,
+    "catalog": {
+      "contextId": "3",
+      "name": "HEAT_CLINIC_MASTER_CATALOG",
+      "locale": "en-US",
+      "level": 1
+    },
+    "sandbox": null,
+    "application": null,
+    "tenant": "5DF1363059675161A85F576D",
+    "customerContextId": null,
+    "baseCatalogId": "3",
+    "overrideCatalogId": null,
+    "sandboxChangeType": "CREATE"
+  },
+  "priceWithDependentItems": {
+    "amount": 0,
+    "currency": "USD"
+  },
+  "onSale": false,
+  "active": true
+}
