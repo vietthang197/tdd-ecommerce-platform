@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
@@ -31,7 +32,7 @@ import java.time.LocalDateTime;
 * */
 @Entity
 @Table(name = Constant.TABLE.VARIANT_TBL, indexes = {
-
+        @Index(name = "TDD_VARIANT_PRODUCT_ID_INDEX", columnList = "PRODUCT_ID")
 })
 @Data
 @ToString
@@ -133,4 +134,23 @@ public class Variant extends SuperEntity implements Serializable {
     @Column(name = "OPTIONS_VALUES")
     @Lob
     private String optionsValues;
+
+    @Column(name = "REVIEWS_NUMBER_OF_REVIEWS")
+    private Integer reviewsNumberOfReviews;
+
+    // overall rating (điểm rating trung bình)
+    @Column(name = "REVIEWS_RATING")
+    private Double reviewsRating;
+
+    /* đơn vị đo rating là start hay là thumbs */
+    @Column(name = "REVIEWS_RATING_UNITS")
+    private String reviewsRatingUnits;
+
+    /* Là mã định danh sản phẩm, khi sản phẩm có nhiều biến thể như màu sắc, kích cỡ thì mỗi biến thể có sku khác nhau*/
+    @Column(name = "SKU", nullable = false, unique = true)
+    private String sku;
+
+    /* Mã vạch của sản phẩm */
+    @Column(name = "UPC")
+    private String upc;
 }

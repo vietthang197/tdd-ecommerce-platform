@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,13 +31,13 @@ import java.util.Set;
 * */
 @Entity
 @Table(name = Constant.TABLE.PRODUCT_TBL, indexes = {
-        @Index(name = "TDD_PRODUCT_DEFAULT_CATEGORY_ID_INDEX", columnList = "DEFAULT_CATEGORY_ID"),
         @Index(name = "TDD_PRODUCT_URI_INDEX", columnList = "URI"),
         @Index(name = "TDD_PRODUCT_CURRENCY_INDEX", columnList = "CURRENCY"),
         @Index(name = "TDD_PRODUCT_NAME_INDEX", columnList = "NAME"),
         @Index(name = "TDD_PRODUCT_ACTIVE_START_DATE_INDEX", columnList = "ACTIVE_START_DATE"),
         @Index(name = "TDD_PRODUCT_ACTIVE_END_DATE_INDEX", columnList = "ACTIVE_END_DATE"),
-        @Index(name = "TDD_PRODUCT_PRODUCT_TYPE_INDEX", columnList = "PRODUCT_TYPE")
+        @Index(name = "TDD_PRODUCT_PRODUCT_TYPE_INDEX", columnList = "PRODUCT_TYPE"),
+        @Index(name = "TDD_PRODUCT_DATA_DRIVEN_ENUM_ID_INDEX", columnList = "DATA_DRIVEN_ENUM_ID"),
 })
 @Data
 @ToString
@@ -226,6 +228,10 @@ public class Product extends SuperEntity implements Serializable {
     @Column(name = "TAX_CODE", length = 200)
     private String taxCode;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="DATA_DRIVEN_ENUM_ID", nullable=false)
+    private DataDrivenEnum merchandisingType;
+
     // Số lượng sản phẩm tối thiểu mà phải add vào cart
     @Column(name = "MIN_THRESHOLD")
     private Integer minThreshold;
@@ -253,4 +259,9 @@ public class Product extends SuperEntity implements Serializable {
     @OneToMany(cascade= CascadeType.ALL, mappedBy="product", fetch = FetchType.LAZY)
     public Set<Variant> variants;
 
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="product", fetch = FetchType.LAZY)
+    public Set<ProductAsset> productAssets;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    private Set<CategoryProduct> productCategories;
 }

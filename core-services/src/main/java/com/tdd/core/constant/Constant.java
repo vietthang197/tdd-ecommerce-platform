@@ -9,6 +9,10 @@ public interface Constant {
         String PRODUCT_TBL = "TDD_PRODUCT";
         String CATEGORY_TBL = "TDD_CATEGORY";
         String VARIANT_TBL = "TDD_VARIANT";
+        String DATA_DRIVEN_ENUM_TBL = "TDD_DATA_DRIVEN_ENUM";
+        String PRODUCT_ASSET_TBL = "TDD_PRODUCT_ASSET";
+        String PRODUCT_ASSET_TAG_TBL = "TDD_PRODUCT_ASSET_TAG";
+        String CATEGORY_PRODUCT_TBL = "TDD_CATEGORY_PRODUCT";
     }
 
     interface PRODUCT {
