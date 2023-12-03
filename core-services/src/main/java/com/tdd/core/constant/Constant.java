@@ -13,6 +13,7 @@ public interface Constant {
         String PRODUCT_ASSET_TBL = "TDD_PRODUCT_ASSET";
         String PRODUCT_ASSET_TAG_TBL = "TDD_PRODUCT_ASSET_TAG";
         String CATEGORY_PRODUCT_TBL = "TDD_CATEGORY_PRODUCT";
+        String CUSTOMER_TBL = "TDD_CUSTOMER";
     }
 
     interface PRODUCT {

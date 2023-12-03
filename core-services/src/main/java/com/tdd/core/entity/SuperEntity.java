@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NoArgsConstructor
 @ToString
 public class SuperEntity {
