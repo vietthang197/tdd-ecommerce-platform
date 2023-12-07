@@ -26,7 +26,7 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductAssetTag extends SuperEntity{
+public class ProductAssetTag extends SuperEntity {
 
     @Id
     @Column(name = "PRODUCT_ASSET_TAG_ID")
