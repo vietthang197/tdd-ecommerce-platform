@@ -1,5 +1,6 @@
 package com.tdd.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
@@ -45,5 +47,8 @@ public class DataDrivenEnum extends SuperEntity {
     private String displayValue;
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy="merchandisingType", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     public Set<Product> products;
 }

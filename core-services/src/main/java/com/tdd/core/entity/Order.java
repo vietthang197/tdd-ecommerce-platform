@@ -1,4 +1,4 @@
 package com.tdd.core.entity;
 
-public class AccountAddress {
+public class Order {
 }

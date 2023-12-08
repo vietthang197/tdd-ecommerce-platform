@@ -1,5 +1,6 @@
 package com.tdd.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
@@ -43,6 +45,9 @@ public class ProductAsset extends SuperEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PRODUCT_ID", nullable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private Product product;
 
     // loại asset IMAGE / PDF / VIDEO
@@ -60,5 +65,8 @@ public class ProductAsset extends SuperEntity {
     private String title;
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy="productAsset", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private Set<ProductAssetTag> productAssetTags;
 }

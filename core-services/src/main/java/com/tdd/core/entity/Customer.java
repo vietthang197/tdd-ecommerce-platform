@@ -1,17 +1,24 @@
 package com.tdd.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.Set;
 
 @Entity
 @Table(name = Constant.TABLE.CUSTOMER_TBL, indexes = {
@@ -41,14 +48,15 @@ public class Customer extends SuperEntity {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    // Y / N
+    // KH đã đăng ký tài khoản hay chưa Y / N
     @Column(name = "IS_REGISTERED", nullable = false)
     private String isRegistered;
 
-    // id của keycloak
+    // user id của keycloak
     @Column(name = "EXTERNAL_ID")
     private String externalId;
 
+    // username của keycloak
     @Column(name = "USERNAME")
     private String username;
 }

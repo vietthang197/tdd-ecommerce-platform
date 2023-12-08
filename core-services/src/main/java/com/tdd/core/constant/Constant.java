@@ -15,6 +15,8 @@ public interface Constant {
         String CATEGORY_PRODUCT_TBL = "TDD_CATEGORY_PRODUCT";
         String CUSTOMER_TBL = "TDD_CUSTOMER";
         String ADDRESS_TBL = "TDD_ADDRESS";
+        String CUSTOMER_ADDRESS_TBL = "TDD_CUSTOMER_ADDRESS";
+        String CART_TBL = "TDD_CART";
     }
 
     interface PRODUCT {

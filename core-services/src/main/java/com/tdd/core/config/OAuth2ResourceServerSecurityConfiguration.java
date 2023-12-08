@@ -15,6 +15,8 @@
  */
 package com.tdd.core.config;
 
+import com.tdd.core.services.KeycloakAuthzService;
+import com.tdd.core.services.impl.KeycloakAuthzServiceImpl;
 import org.keycloak.adapters.authorization.integration.jakarta.ServletPolicyEnforcerFilter;
 import org.keycloak.adapters.authorization.spi.ConfigurationResolver;
 import org.keycloak.adapters.authorization.spi.HttpRequest;
@@ -48,21 +50,26 @@ public class OAuth2ResourceServerSecurityConfiguration {
 
 	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
 	private String jwkSetUri;
+	private final MvcRequestMatcher.Builder matcher;
+	public OAuth2ResourceServerSecurityConfiguration(MvcRequestMatcher.Builder matcher) {
+		this.matcher = matcher;
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.anonymous(Customizer.withDefaults())
 				.authorizeHttpRequests((authorize) -> authorize
+						.requestMatchers(matcher.pattern("/actuator/**")).permitAll()
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-				.addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class);
+				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
 		return http.build();
 	}
 
-	private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
-		return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
+	@Bean
+	public KeycloakAuthzService keycloakAuthzService() {
+		return new KeycloakAuthzServiceImpl(new ConfigurationResolver() {
 			@Override
 			public PolicyEnforcerConfig resolve(HttpRequest request) {
 				try {

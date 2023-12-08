@@ -1,5 +1,6 @@
 package com.tdd.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
@@ -30,14 +32,20 @@ public class CategoryProduct extends SuperEntity {
     @Id
     @Column(name = "CATEGORY_PRODUCT_ID")
     @UuidGenerator
-    private String productCategoryId;
+    private String categoryProductId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private Category category;
 
     // 1 sản phẩm có thể thuộc nhiều category, tuy nhiên 1 sản phẩm chỉ đc gán cho 1 category chính

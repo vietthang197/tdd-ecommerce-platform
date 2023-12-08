@@ -1,6 +1,7 @@
 package com.tdd.core.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +14,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
@@ -35,5 +37,8 @@ public class ProductAssetTag extends SuperEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PRODUCT_ASSET_ID", nullable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private ProductAsset productAsset;
 }

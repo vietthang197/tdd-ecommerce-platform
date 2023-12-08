@@ -1,5 +1,6 @@
 package com.tdd.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
@@ -230,6 +232,9 @@ public class Product extends SuperEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="DATA_DRIVEN_ENUM_ID", nullable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private DataDrivenEnum merchandisingType;
 
     // Số lượng sản phẩm tối thiểu mà phải add vào cart
@@ -257,11 +262,20 @@ public class Product extends SuperEntity implements Serializable {
     private String tags;
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy="product", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     public Set<Variant> variants;
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy="product", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     public Set<ProductAsset> productAssets;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private Set<CategoryProduct> productCategories;
 }

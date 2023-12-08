@@ -6,6 +6,10 @@
     "secret": "P4BT7TZvBC1BNGIgs5ICsAaQth7N4uhq"
   },
   "paths": [
-
+    {
+      "name": "Actuator",
+      "path": "/actuator/*",
+      "enforcement-mode": "DISABLED"
+    }
   ]
 }
