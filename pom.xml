@@ -49,6 +49,7 @@
         <module>payment-services</module>
         <module>file-services</module>
         <module>notify-services</module>
+        <module>cart-services</module>
     </modules>
 
 </project>

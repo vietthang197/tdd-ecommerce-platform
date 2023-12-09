@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = Constant.TABLE.CUSTOMER_TBL, indexes = {
-
+        @Index(name = "TDD_CUSTOMER_IS_REGISTERED_INDEX", columnList = "IS_REGISTERED"),
+        @Index(name = "TDD_CUSTOMER_EXTERNAL_ID_INDEX", columnList = "EXTERNAL_ID"),
+        @Index(name = "TDD_CUSTOMER_USERNAME_INDEX", columnList = "USERNAME")
 })
 @Data
 @ToString
@@ -59,4 +63,10 @@ public class Customer extends SuperEntity {
     // username của keycloak
     @Column(name = "USERNAME")
     private String username;
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    public Set<Order> orders;
 }

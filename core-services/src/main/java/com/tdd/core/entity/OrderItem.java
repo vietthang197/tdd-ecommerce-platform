@@ -1,5 +1,6 @@
 package com.tdd.core.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.Column;
@@ -19,40 +20,24 @@ import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
-@Table(name = Constant.TABLE.CUSTOMER_ADDRESS_TBL, indexes = {
-        @Index(name = "TDD_CUSTOMER_ADDRESS_ADDRESS_ID_INDEX", columnList = "ADDRESS_ID"),
-        @Index(name = "TDD_CUSTOMER_ADDRESS_CUSTOMER_ID_INDEX", columnList = "CUSTOMER_ID"),
+@Table(name = Constant.TABLE.ORDER_ITEM_TBL, indexes = {
+        @Index(name = "TDD_ORDER_ITEM_ORDER_ID_INDEX", columnList = "ORDER_ID")
 })
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerAddress extends SuperEntity {
-
+public class OrderItem extends SuperEntity {
     @Id
-    @Column(name = "CUSTOMER_ADDRESS_ID")
+    @Column(name = "ORDER_ITEM_ID")
     @UuidGenerator
-    private String customerAddressId;
-
-    @Column(name = "IS_DEFAULT_BILLING")
-    private String isDefaultBilling;
-
-    @Column(name = "IS_DEFAULT_SHIPPING")
-    private String isDefaultShipping;
+    private String orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "ORDER_ID")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private Customer customer;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ADDRESS_ID")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonIgnore
-    private Address address;
-
+    private Order order;
 }
