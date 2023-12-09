@@ -15,7 +15,7 @@ spring:
     hikari:
       pool-name: Hikari
       validation-timeout: 1000
-      maximum-pool-size: 100
+      maximum-pool-size: 1000
       minimum-idle: 1
   jpa:
     open-in-view: false
