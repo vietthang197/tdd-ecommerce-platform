@@ -7,9 +7,27 @@
   },
   "paths": [
     {
-      "name": "Actuator",
-      "path": "/actuator/*",
-      "enforcement-mode": "DISABLED"
+      "name": "Category",
+      "path": "/category/{id}",
+      "enforcement-mode": "ENFORCING",
+      "methods": [
+        {
+          "method": "GET",
+          "scopes" : ["category:view"]
+        },
+        {
+          "method": "POST",
+          "scopes" : ["category:create"]
+        },
+        {
+          "method": "PUT",
+          "scopes" : ["category:edit"]
+        },
+        {
+          "method": "DELETE",
+          "scopes" : ["category:delete"]
+        }
+      ]
     }
   ]
 }

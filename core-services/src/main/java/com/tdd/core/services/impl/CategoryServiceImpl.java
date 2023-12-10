@@ -15,14 +15,9 @@ import com.tdd.core.vm.CreateCategoryVM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
