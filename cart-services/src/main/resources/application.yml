@@ -8,9 +8,7 @@ spring:
       enabled: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017/ecommerce?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=1000&maxIdleTimeMS=900000
-      username: tdd_platform
-      password: Tdd@plf2023
+      uri: mongodb://tdd_platform:Tdd_plf2023@localhost:27017/ecommerce?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=1000&maxIdleTimeMS=900000
 eureka:
   client:
     registerWithEureka: true

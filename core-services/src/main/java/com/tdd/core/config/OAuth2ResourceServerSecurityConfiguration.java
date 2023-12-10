@@ -60,7 +60,7 @@ public class OAuth2ResourceServerSecurityConfiguration {
 		http
 				.anonymous(Customizer.withDefaults())
 				.authorizeHttpRequests((authorize) -> authorize
-						.requestMatchers(matcher.pattern("/actuator/**")).permitAll()
+						.requestMatchers(matcher.pattern("/actuator/**"), matcher.pattern("/product/**")).permitAll()
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));

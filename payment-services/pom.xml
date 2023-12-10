@@ -6,6 +6,7 @@
         <groupId>com.tdd</groupId>
         <artifactId>tdd-ecommerce-platform</artifactId>
         <version>1.0</version>
+        <relativePath/>
     </parent>
     <artifactId>payment-services</artifactId>
     <version>1.0</version>

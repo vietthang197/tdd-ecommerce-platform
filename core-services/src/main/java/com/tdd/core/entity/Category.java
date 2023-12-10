@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -18,10 +19,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /*Đại diện cho category*/
 @Entity
@@ -38,6 +43,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Category implements Serializable {
+    public static final int URL_LENGTH = 1000;
+    public static final int DESCIPTION_LENGTH = 1500;
+    public static final int OVERRIDE_GENERATED_URL = 500;
 
     @Id
     @Column(name = "CATEGORY_ID")
@@ -51,15 +59,16 @@ public class Category implements Serializable {
     private LocalDateTime activeEndDate;
 
     @Column(name = "ATTRIBUTES") // format JSON
-    private String attributes;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> attributes;
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "URL", length = 500)
+    @Column(name = "URL", length = 1000)
     private String url;
 
-    @Column(name = "DESCRIPTION", length = 500)
+    @Column(name = "DESCRIPTION", length = 1500)
     private String description;
 
     @Column(name = "TAX_CODE")

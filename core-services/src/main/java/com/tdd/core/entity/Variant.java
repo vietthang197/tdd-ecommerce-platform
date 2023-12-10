@@ -16,11 +16,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /*
 * Bảng này để lưu các biến thể của product.
@@ -58,8 +61,8 @@ public class Variant extends SuperEntity implements Serializable {
 
     // Thuộc tính động của biến thể
     @Column(name = "ATTRIBUTES")
-    @Lob
-    private String attributes;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> attributes;
 
     // giá nhập
     @Column(name = "COST")
@@ -132,8 +135,8 @@ public class Variant extends SuperEntity implements Serializable {
 
     // Giá trị các option của biến thể
     @Column(name = "OPTIONS_VALUES")
-    @Lob
-    private String optionsValues;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> optionsValues;
 
     @Column(name = "REVIEWS_NUMBER_OF_REVIEWS")
     private Integer reviewsNumberOfReviews;

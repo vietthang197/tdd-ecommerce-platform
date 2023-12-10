@@ -20,11 +20,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 /*Thuộc tính chung của sản phẩm, sản phẩm này không được hiển thị để bán hoặc là thêm vào giỏ hàng, thêm vào giỏ hàng là sku
@@ -62,7 +65,8 @@ public class Product extends SuperEntity implements Serializable {
     // Dynamic attribute là một phần của product, admin thêm thông tin phụ lưu trên sản phẩm
     // [{"name":"hotRange", "label":"Độ cay", "isArray": false, "value":"fuckk"}, {"name":"hotRange2", "label":"Độ cay", "isArray": true, "value":"['fuck', 'fuck2']"}]
     @Column(name = "ATTRIBUTES") // format JSON
-    private String attributes;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> attributes;
 
     // Sản phẩm có sẵn cho cửa hàng trực tuyến hay không Y/N
     @Column(name = "AVAILABLE_ONLINE", nullable = false)
@@ -134,8 +138,8 @@ public class Product extends SuperEntity implements Serializable {
 
     // Trường này dành riêng cho bundled product, theo tìm hiểu qua loa thì nó lưu danh sách thông tin các product bundle item json
     @Column(name = "INCLUDED_PRODUCTS")
-    @Lob
-    private String includedProducts;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> includedProducts;
 
     /* Nếu product hoặc bất kỳ biến th của nó có thể được bán riêng lẻ trong cửa hàng
     * hoặc chúng có phải tách rời khỏi sản phẩm như một tiện ích bổ sung không
@@ -192,8 +196,8 @@ public class Product extends SuperEntity implements Serializable {
 
     // string json quy định các options của sản phẩm như kiểu Size, Color, ....
     @Column(name = "OPTIONS")
-    @Lob
-    private String options;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> options;
 
     // đơn giản hoá việc ghi lại số lượng reviews của một sản phẩm, cột này ghi lại tổng số review của KH
     @Column(name = "REVIEWS_NUMBER_OF_REVIEWS")

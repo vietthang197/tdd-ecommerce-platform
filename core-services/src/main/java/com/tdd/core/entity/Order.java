@@ -19,11 +19,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -95,8 +98,8 @@ public class Order extends SuperEntity {
     private BigDecimal total;
 
     @Column(name = "ATTRIBUTES")
-    @Lob
-    private String attributes;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, String> attributes;
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy="order", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
