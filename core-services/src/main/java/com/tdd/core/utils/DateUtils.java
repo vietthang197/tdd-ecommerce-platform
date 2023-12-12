@@ -39,14 +39,14 @@ public class DateUtils {
     public static LocalDateTime toLocalDateTime(String value, String pattern) {
         if (value == null)
             return null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withResolverStyle(ResolverStyle.STRICT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return LocalDateTime.parse(value, formatter);
     }
 
     public static String toString(TemporalAccessor value, String pattern) {
         if (value == null)
             return null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withResolverStyle(ResolverStyle.STRICT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return formatter.format(value);
     }
 }

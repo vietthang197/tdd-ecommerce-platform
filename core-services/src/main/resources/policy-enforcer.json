@@ -7,8 +7,8 @@
   },
   "paths": [
     {
-      "name": "Category",
-      "path": "/category/{id}",
+      "name": "CategoryResource",
+      "path": "/category",
       "enforcement-mode": "ENFORCING",
       "methods": [
         {
@@ -28,6 +28,11 @@
           "scopes" : ["category:delete"]
         }
       ]
+    },
+    {
+      "name": "Actuator",
+      "path": "/actuator/*",
+      "enforcement-mode": "DISABLED"
     }
   ]
 }

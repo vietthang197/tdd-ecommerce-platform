@@ -8,5 +8,8 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class CategoryDto implements Serializable {
+    private String categoryId;
+
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,8 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = Constant.TABLE.CATEGORY_PRODUCT_TBL, indexes = {
         @Index(name = "TDD_CATEGORY_PRODUCT_PRODUCT_ID_INDEX", columnList = "PRODUCT_ID"),
         @Index(name = "TDD_CATEGORY_PRODUCT_CATEGORY_ID_INDEX", columnList = "CATEGORY_ID"),
+}, uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "PRODUCT_ID", "CATEGORY_ID" })
 })
 @Data
 @ToString

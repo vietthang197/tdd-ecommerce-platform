@@ -5,10 +5,12 @@ import com.tdd.core.dto.BaseResponse;
 import com.tdd.core.dto.CategoryDto;
 import com.tdd.core.services.CategoryService;
 import com.tdd.core.vm.CreateCategoryVM;
+import com.tdd.core.vm.UpdateGeneralCategoryVM;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +25,13 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("@keycloakAuthzService.isGrant(#httpServletRequest, #httpServletResponse)")
     @PostMapping
-    public BaseResponse<CategoryDto> createCategory(@RequestBody @Valid CreateCategoryVM request) throws JsonProcessingException {
+    public BaseResponse<CategoryDto> createCategory(@RequestBody @Valid CreateCategoryVM request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws JsonProcessingException {
         return categoryService.createCategory(request);
+    }
+
+    @PutMapping
+    public BaseResponse<CategoryDto> updateCategory(@RequestBody @Valid UpdateGeneralCategoryVM request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws JsonProcessingException {
+        return categoryService.updateGeneralCategory(request);
     }
 }

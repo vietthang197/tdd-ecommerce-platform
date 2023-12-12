@@ -12,6 +12,8 @@ import com.tdd.core.repository.CategoryRepository;
 import com.tdd.core.services.CategoryService;
 import com.tdd.core.utils.DateUtils;
 import com.tdd.core.vm.CreateCategoryVM;
+import com.tdd.core.vm.UpdateGeneralCategoryVM;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
@@ -35,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public BaseResponse<CategoryDto> createCategory(CreateCategoryVM request) throws JsonProcessingException {
         Optional<Category> categoryOptional = Optional.empty();
         if (Strings.isNotBlank(request.getParentCategoryId())) {
@@ -58,10 +61,17 @@ public class CategoryServiceImpl implements CategoryService {
         categoryOptional.ifPresent(category::setParentCategory);
 
         if (Strings.isNotBlank(request.getAttributes())) {
-            Map<String, String> attributes = mapper.readValue(request.getAttributes(), new TypeReference<Map<String, String>>() {});
+            Map<String, String> attributes = mapper.readValue(request.getAttributes(), new TypeReference<>() {
+            });
             category.setAttributes(attributes);
         }
         categoryRepository.save(category);
         return BaseResponse.ok(categoryMapper.toDto(category));
+    }
+
+    @Override
+    public BaseResponse<CategoryDto> updateGeneralCategory(UpdateGeneralCategoryVM request) {
+        Optional<Category> categoryOptional = categoryRepository.findByCategoryId(request.getCategoryId());
+        return null;
     }
 }
