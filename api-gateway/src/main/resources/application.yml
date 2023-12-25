@@ -10,7 +10,7 @@ spring:
     gateway:
       routes:
         - id: core
-          uri: 'http://localhost:9001'
+          uri: 'http://localhost:9010'
           predicates:
           - Path=/core-services/**
           filters:

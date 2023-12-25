@@ -24,7 +24,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -49,7 +48,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product extends SuperEntity implements Serializable {
+public class Product extends SuperEntity {
 
     @Id
     @Column(name = "PRODUCT_ID")

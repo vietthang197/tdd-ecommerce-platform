@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tdd.core.dto.BaseResponse;
 import com.tdd.core.dto.CategoryDto;
+import com.tdd.core.dto.PagingDto;
 import com.tdd.core.entity.Category;
 import com.tdd.core.exeception.InvalidDataRequestException;
 import com.tdd.core.mapper.CategoryMapper;
@@ -13,10 +14,12 @@ import com.tdd.core.services.CategoryService;
 import com.tdd.core.utils.DateUtils;
 import com.tdd.core.vm.CreateCategoryVM;
 import com.tdd.core.vm.UpdateGeneralCategoryVM;
-import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -37,7 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public BaseResponse<CategoryDto> createCategory(CreateCategoryVM request) throws JsonProcessingException {
         Optional<Category> categoryOptional = Optional.empty();
         if (Strings.isNotBlank(request.getParentCategoryId())) {
@@ -48,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = Category.builder()
                 .activeStartDate(DateUtils.toLocalDateTime(request.getActiveStartDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT))
-                .activeEndDate(DateUtils.toLocalDateTime(request.getActiveEndDate(), DateUtils.DEFAULT_DATE_FORMAT))
+                .activeEndDate(DateUtils.toLocalDateTime(request.getActiveEndDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT))
                 .name(request.getName())
                 .url(request.getUrl())
                 .description(request.getDescription())
@@ -72,6 +74,28 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public BaseResponse<CategoryDto> updateGeneralCategory(UpdateGeneralCategoryVM request) {
         Optional<Category> categoryOptional = categoryRepository.findByCategoryId(request.getCategoryId());
-        return null;
+        if (categoryOptional.isEmpty())
+            throw new InvalidDataRequestException("Invalid categoryId");
+
+        Category category = categoryOptional.get();
+        category.setActiveStartDate(DateUtils.toLocalDateTime(request.getActiveStartDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT));
+        category.setActiveEndDate(DateUtils.toLocalDateTime(request.getActiveEndDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT));
+        category.setName(request.getName());
+        category.setUrl(request.getUrl());
+        category.setDescription(request.getDescription());
+        category.setTaxCode(request.getTaxCode());
+        category.setMetaTitle(request.getMetaTitle());
+        category.setMetaDescription(request.getMetaDescription());
+        category.setOverrideGeneratedUrl(request.getOverrideGeneratedUrl());
+
+        categoryRepository.save(category);
+        return BaseResponse.ok(categoryMapper.toDto(category));
+    }
+
+    @Override
+    public BaseResponse<PagingDto<CategoryDto>> findAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdDate"));
+        Page<Category> categoryPage = categoryRepository.findAll(pageRequest);
+        return BaseResponse.ok(new PagingDto<>(categoryPage.getTotalPages(), categoryPage.getTotalElements(), categoryMapper.toListDto(categoryPage.getContent())));
     }
 }

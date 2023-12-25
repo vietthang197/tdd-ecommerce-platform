@@ -21,7 +21,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Category implements Serializable {
+public class Category extends SuperEntity {
     public static final int URL_LENGTH = 1000;
     public static final int DESCIPTION_LENGTH = 1500;
     public static final int OVERRIDE_GENERATED_URL = 500;

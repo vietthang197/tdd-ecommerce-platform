@@ -1,22 +1,16 @@
 package com.tdd.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.core.constant.Constant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
-
-import java.util.Set;
 
 // Bảng lưu thông tin địa chỉ ship hàng của đơn hàng, map giữa đơn hàng và địa chỉ là fulfilment_group
 @Entity
