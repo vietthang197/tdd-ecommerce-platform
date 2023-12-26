@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,6 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public BaseResponse<CategoryDto> createCategory(CreateCategoryVM request) throws JsonProcessingException {
         Optional<Category> categoryOptional = Optional.empty();
         if (Strings.isNotBlank(request.getParentCategoryId())) {
@@ -68,10 +70,12 @@ public class CategoryServiceImpl implements CategoryService {
             category.setAttributes(attributes);
         }
         categoryRepository.save(category);
-        return BaseResponse.ok(categoryMapper.toDto(category));
+        CategoryDto response = categoryMapper.toDto(category);
+        return BaseResponse.ok(response);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public BaseResponse<CategoryDto> updateGeneralCategory(UpdateGeneralCategoryVM request) {
         Optional<Category> categoryOptional = categoryRepository.findByCategoryId(request.getCategoryId());
         if (categoryOptional.isEmpty())
@@ -93,6 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public BaseResponse<PagingDto<CategoryDto>> findAll(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdDate"));
         Page<Category> categoryPage = categoryRepository.findAll(pageRequest);

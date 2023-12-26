@@ -79,7 +79,7 @@ public class Category extends SuperEntity {
     @Column(name = "OVERRIDE_GENERATED_URL", length = 500)
     private String overrideGeneratedUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT_CATEGORY_ID")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -17,12 +17,12 @@ spring:
     hikari:
       pool-name: Hikari
       validation-timeout: 1000
-      maximum-pool-size: 1000
+      maximum-pool-size: 10000
       minimum-idle: 1
   jpa:
     open-in-view: false
     properties:
-      javax:
+      jakarta:
         persistence:
           shared-cache:
             mode: ENABLE_SELECTIVE
@@ -48,7 +48,7 @@ spring:
               root: 'D:/apache_lucene/ecommerce'
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   security:
     oauth2:
       resourceserver:
