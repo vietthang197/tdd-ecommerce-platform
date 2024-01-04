@@ -8,8 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -63,10 +61,4 @@ public class Customer extends SuperEntity {
     // username của keycloak
     @Column(name = "USERNAME")
     private String username;
-
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonIgnore
-    public Set<Order> orders;
 }

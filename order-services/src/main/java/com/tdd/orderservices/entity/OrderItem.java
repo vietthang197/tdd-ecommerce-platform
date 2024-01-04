@@ -1,8 +1,8 @@
-package com.tdd.core.entity;
+package com.tdd.orderservices.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tdd.core.constant.Constant;
+import com.tdd.orderservices.constant.Constant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
