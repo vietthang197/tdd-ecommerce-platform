@@ -14,7 +14,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,7 +25,8 @@ import org.hibernate.annotations.UuidGenerator;
         @Index(name = "TDD_CUSTOMER_ADDRESS_ADDRESS_ID_INDEX", columnList = "ADDRESS_ID"),
         @Index(name = "TDD_CUSTOMER_ADDRESS_CUSTOMER_ID_INDEX", columnList = "CUSTOMER_ID"),
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

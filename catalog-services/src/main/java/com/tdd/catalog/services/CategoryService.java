@@ -13,4 +13,6 @@ public interface CategoryService {
     BaseResponse<CategoryDto> updateGeneralCategory(UpdateGeneralCategoryVM request);
 
     BaseResponse<PagingDto<CategoryDto>> findAll(Integer page, Integer size);
+
+    BaseResponse<CategoryDto> findByUrl(String categoryUrl);
 }

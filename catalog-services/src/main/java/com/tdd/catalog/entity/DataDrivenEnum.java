@@ -13,7 +13,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,7 +25,8 @@ import java.util.Set;
 @Table(name = Constant.TABLE.DATA_DRIVEN_ENUM_TBL, indexes = {
 
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

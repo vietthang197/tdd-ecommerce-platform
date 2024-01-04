@@ -10,6 +10,7 @@ import com.tdd.catalog.vm.UpdateGeneralCategoryVM;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    public BaseResponse<PagingDto<CategoryDto>> findAllCategory(@RequestParam @NotNull Integer page, @RequestParam @NotNull Integer size) {
+    public BaseResponse<PagingDto<CategoryDto>> findAllCategory(@RequestParam @Valid @NotNull Integer page, @RequestParam @Valid @NotNull Integer size) {
         return categoryService.findAll(page, size);
+    }
+
+    @GetMapping("/{categoryUrl}")
+    public BaseResponse<CategoryDto> findByUrl(@PathVariable @Valid @NotNull String categoryUrl) {
+        return categoryService.findByUrl(categoryUrl);
     }
 }

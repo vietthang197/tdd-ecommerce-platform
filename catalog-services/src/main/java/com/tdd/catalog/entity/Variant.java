@@ -13,7 +13,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -36,7 +38,8 @@ import java.util.Map;
 @Table(name = Constant.TABLE.VARIANT_TBL, indexes = {
         @Index(name = "TDD_VARIANT_PRODUCT_ID_INDEX", columnList = "PRODUCT_ID")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -50,6 +53,7 @@ public class Variant extends SuperEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PRODUCT_ID", nullable=false)
+    @ToString.Exclude
     private Product product;
 
     @Column(name = "ACTIVE_START_DATE")

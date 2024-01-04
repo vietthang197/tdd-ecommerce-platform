@@ -9,7 +9,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -19,7 +21,8 @@ import org.hibernate.annotations.UuidGenerator;
         @Index(name = "TDD_CUSTOMER_EXTERNAL_ID_INDEX", columnList = "EXTERNAL_ID"),
         @Index(name = "TDD_CUSTOMER_USERNAME_INDEX", columnList = "USERNAME")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

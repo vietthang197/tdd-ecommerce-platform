@@ -3,6 +3,7 @@ package com.tdd.catalog.services.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tdd.catalog.constant.Constant;
 import com.tdd.catalog.dto.BaseResponse;
 import com.tdd.catalog.dto.CategoryDto;
 import com.tdd.catalog.dto.PagingDto;
@@ -45,10 +46,14 @@ public class CategoryServiceImpl implements CategoryService {
     public BaseResponse<CategoryDto> createCategory(CreateCategoryVM request) throws JsonProcessingException {
         Optional<Category> categoryOptional = Optional.empty();
         if (Strings.isNotBlank(request.getParentCategoryId())) {
-            categoryOptional = categoryRepository.findByCategoryId(request.getParentCategoryId());
+            categoryOptional = categoryRepository.findByCategoryIdAndIsDeleted(request.getParentCategoryId(), Constant.STR_N);
             if (categoryOptional.isEmpty())
                 throw new InvalidDataRequestException("Invalid parentCategoryId!");
         }
+
+        Optional<Category> byUrlOptional = categoryRepository.findByUrl(request.getUrl());
+        if (byUrlOptional.isPresent())
+            throw new InvalidDataRequestException("Duplicate url");
 
         Category category = Category.builder()
                 .activeStartDate(DateUtils.toLocalDateTime(request.getActiveStartDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT))
@@ -60,6 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .metaTitle(request.getMetaTitle())
                 .metaDescription(request.getMetaDescription())
                 .overrideGeneratedUrl(request.getOverrideGeneratedUrl())
+                .isDeleted(Constant.STR_N)
                 .build();
 
         categoryOptional.ifPresent(category::setParentCategory);
@@ -77,9 +83,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public BaseResponse<CategoryDto> updateGeneralCategory(UpdateGeneralCategoryVM request) {
-        Optional<Category> categoryOptional = categoryRepository.findByCategoryId(request.getCategoryId());
+        Optional<Category> categoryOptional = categoryRepository.findByCategoryIdAndIsDeleted(request.getCategoryId(), Constant.STR_N);
         if (categoryOptional.isEmpty())
             throw new InvalidDataRequestException("Invalid categoryId");
+
+        Optional<Category> byUrlOptional = categoryRepository.findByUrl(request.getUrl());
+        if (byUrlOptional.isPresent() && !byUrlOptional.get().getCategoryId().equals(categoryOptional.get().getCategoryId()))
+            throw new InvalidDataRequestException("Duplicate url");
 
         Category category = categoryOptional.get();
         category.setActiveStartDate(DateUtils.toLocalDateTime(request.getActiveStartDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT));
@@ -91,6 +101,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setMetaTitle(request.getMetaTitle());
         category.setMetaDescription(request.getMetaDescription());
         category.setOverrideGeneratedUrl(request.getOverrideGeneratedUrl());
+        category.setIsDeleted(Constant.STR_N);
 
         categoryRepository.save(category);
         return BaseResponse.ok(categoryMapper.toDto(category));
@@ -100,7 +111,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public BaseResponse<PagingDto<CategoryDto>> findAll(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdDate"));
-        Page<Category> categoryPage = categoryRepository.findAll(pageRequest);
+        Page<Category> categoryPage = categoryRepository.findAllByIsDeleted(Constant.STR_N, pageRequest);
         return BaseResponse.ok(new PagingDto<>(categoryPage.getTotalPages(), categoryPage.getTotalElements(), categoryMapper.toListDto(categoryPage.getContent())));
+    }
+
+    @Override
+    @Transactional
+    public BaseResponse<CategoryDto> findByUrl(String categoryUrl) {
+        Optional<Category> categoryOptional = categoryRepository.findByUrlAndIsDeleted(categoryUrl, Constant.STR_N);
+        if (categoryOptional.isEmpty())
+            throw new InvalidDataRequestException("Invalid categoryUrl");
+        return BaseResponse.ok(categoryMapper.toDto(categoryOptional.get()));
     }
 }

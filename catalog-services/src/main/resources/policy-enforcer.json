@@ -8,7 +8,7 @@
   "paths": [
     {
       "name": "CategoryResource",
-      "path": "/category",
+      "path": "/category/*",
       "enforcement-mode": "ENFORCING",
       "methods": [
         {

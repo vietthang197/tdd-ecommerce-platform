@@ -16,7 +16,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -27,7 +29,8 @@ import java.util.Set;
         @Index(name = "TDD_PRODUCT_ASSET_PRODUCT_ID_INDEX", columnList = "PRODUCT_ID"),
         @Index(name = "TDD_PRODUCT_ASSET_FILE_ID_INDEX", columnList = "FILE_ID")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

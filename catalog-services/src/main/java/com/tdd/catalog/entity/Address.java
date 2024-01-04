@@ -8,7 +8,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -16,7 +18,8 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Table(name = Constant.TABLE.ADDRESS_TBL, indexes = {
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

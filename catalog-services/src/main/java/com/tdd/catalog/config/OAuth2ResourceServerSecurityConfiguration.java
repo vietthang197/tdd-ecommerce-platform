@@ -29,13 +29,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 
 import java.io.IOException;
 
 /**
- * OAuth resource configuration.
+ * OAuth2 resource configuration.
  *
  * @author Josh Cummings
  */
@@ -60,7 +61,7 @@ public class OAuth2ResourceServerSecurityConfiguration {
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-				/*.addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class)*/;
+				.addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class);
 		return http.build();
 	}
 

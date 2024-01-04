@@ -15,7 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,7 +25,8 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = Constant.TABLE.PRODUCT_ASSET_TAG_TBL, indexes = {
         @Index(name = "TDD_PRODUCT_ASSET_TAG_PRODUCT_ASSET_INDEX", columnList = "PRODUCT_ASSET_ID")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

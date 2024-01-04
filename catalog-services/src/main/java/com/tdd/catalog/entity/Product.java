@@ -17,7 +17,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -42,8 +44,10 @@ import java.util.Set;
         @Index(name = "TDD_PRODUCT_ACTIVE_END_DATE_INDEX", columnList = "ACTIVE_END_DATE"),
         @Index(name = "TDD_PRODUCT_PRODUCT_TYPE_INDEX", columnList = "PRODUCT_TYPE"),
         @Index(name = "TDD_PRODUCT_DATA_DRIVEN_ENUM_ID_INDEX", columnList = "DATA_DRIVEN_ENUM_ID"),
+        @Index(name = "TDD_PRODUCT_IS_DELETED_INDEX", columnList = "IS_DELETED")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -281,4 +285,8 @@ public class Product extends SuperEntity {
     @ToString.Exclude
     @JsonIgnore
     private Set<CategoryProduct> productCategories;
+
+    @Column(name = "IS_DELETED")
+    @ColumnDefault("'"+ Constant.STR_N +"'")
+    private String isDeleted;
 }

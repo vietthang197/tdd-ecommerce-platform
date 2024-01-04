@@ -15,8 +15,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
@@ -32,8 +35,10 @@ import java.util.Map;
         @Index(name = "TDD_CATEGORY_ACTIVE_END_DATE_INDEX", columnList = "ACTIVE_END_DATE"),
         @Index(name = "TDD_CATEGORY_OVERRIDE_GENERATED_URL_INDEX", columnList = "OVERRIDE_GENERATED_URL"),
         @Index(name = "TDD_CATEGORY_PARENT_CATEGORY_ID_INDEX", columnList = "PARENT_CATEGORY_ID"),
+        @Index(name = "TDD_CATEGORY_IS_DELETED_INDEX", columnList = "IS_DELETED")
 })
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,7 +66,7 @@ public class Category extends SuperEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "URL", length = 1000)
+    @Column(name = "URL", length = 1000, unique = true)
     private String url;
 
     @Column(name = "DESCRIPTION", length = 1500)
@@ -85,4 +90,8 @@ public class Category extends SuperEntity {
     @ToString.Exclude
     @JsonIgnore
     private Category parentCategory;
+
+    @Column(name = "IS_DELETED")
+    @ColumnDefault("'"+ Constant.STR_N +"'")
+    private String isDeleted;
 }
