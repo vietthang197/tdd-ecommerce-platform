@@ -1,20 +1,15 @@
+
 server:
-  port: 9000
+  port: 9012
 spring:
   application:
     name: api-gateway
   threads:
     virtual:
       enabled: true
-  cloud:
-    gateway:
-      routes:
-        - id: core
-          uri: 'http://localhost:9010'
-          predicates:
-          - Path=/catalog-services/**
-          filters:
-          - StripPrefix=1
+  data:
+    mongodb:
+      uri: mongodb://tdd_platform:Tdd_plf2023@localhost:27017/ecommerce?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=1000&maxIdleTimeMS=900000
 eureka:
   client:
     registerWithEureka: true

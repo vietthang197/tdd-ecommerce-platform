@@ -1,8 +1,0 @@
-{
-  "realm": "ecommerce",
-  "auth-server-url": "http://localhost:8080",
-  "resource": "core-services",
-  "credentials": {
-    "secret": "P4BT7TZvBC1BNGIgs5ICsAaQth7N4uhq"
-  }
-}

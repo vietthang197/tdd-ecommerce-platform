@@ -44,7 +44,7 @@
     <modules>
         <module>api-gateway</module>
         <module>cms-services</module>
-        <module>core-services</module>
+        <module>catalog-services</module>
         <module>discovery-server</module>
         <module>payment-services</module>
         <module>file-services</module>
