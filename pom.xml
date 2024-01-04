@@ -50,6 +50,7 @@
         <module>file-services</module>
         <module>notify-services</module>
         <module>cart-services</module>
+        <module>order-services</module>
     </modules>
 
 </project>
