@@ -7,6 +7,8 @@ import com.tdd.catalog.dto.PagingDto;
 import com.tdd.catalog.services.CategoryService;
 import com.tdd.catalog.vm.CreateCategoryVM;
 import com.tdd.catalog.vm.UpdateGeneralCategoryVM;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/category")
+@SecurityRequirement(name = "Authorization")
+@Tag(name = "CategoryController - Api liên quan tới catalog category")
 public class CategoryController {
 
     private final CategoryService categoryService;

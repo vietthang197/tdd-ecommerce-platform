@@ -33,6 +33,16 @@
       "name": "Actuator",
       "path": "/actuator/*",
       "enforcement-mode": "DISABLED"
+    },
+    {
+      "name": "SwaggerUI",
+      "path": "/swagger-ui/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "name": "SwaggerConfig",
+      "path": "/v3/api-docs/*",
+      "enforcement-mode": "DISABLED"
     }
   ]
 }

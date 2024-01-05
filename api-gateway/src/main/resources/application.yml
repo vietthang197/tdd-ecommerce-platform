@@ -7,10 +7,12 @@ spring:
     virtual:
       enabled: true
   cloud:
+    loadbalancer:
+      configurations: health-check
     gateway:
       routes:
         - id: core
-          uri: 'http://localhost:9010'
+          uri: lb://catalog-services
           predicates:
           - Path=/catalog-services/**
           filters:

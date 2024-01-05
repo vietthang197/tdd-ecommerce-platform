@@ -15,6 +15,13 @@
  */
 package com.tdd.catalog.config;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.OAuthFlow;
+import io.swagger.v3.oas.annotations.security.OAuthFlows;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.keycloak.adapters.authorization.integration.jakarta.ServletPolicyEnforcerFilter;
 import org.keycloak.adapters.authorization.spi.ConfigurationResolver;
 import org.keycloak.adapters.authorization.spi.HttpRequest;
@@ -43,6 +50,10 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@OpenAPIDefinition(servers = {@Server(url = "http://localhost:9010")})
+@SecurityScheme(name = "Authorization" , scheme = "Bearer", type = SecuritySchemeType.OAUTH2, in = SecuritySchemeIn.HEADER,
+		flows = @OAuthFlows(password = @OAuthFlow(authorizationUrl = "http://localhost:8080/realms/ecommerce/protocol/openid-connect/auth",
+				tokenUrl = "http://localhost:8080/realms/ecommerce/protocol/openid-connect/token")))
 public class OAuth2ResourceServerSecurityConfiguration {
 
 	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
@@ -57,7 +68,7 @@ public class OAuth2ResourceServerSecurityConfiguration {
 		http
 				.anonymous(Customizer.withDefaults())
 				.authorizeHttpRequests((authorize) -> authorize
-						.requestMatchers(matcher.pattern("/actuator/**")).permitAll()
+						.requestMatchers(matcher.pattern("/actuator/**"), matcher.pattern("/swagger-ui/**"), matcher.pattern("/v3/api-docs/**")).permitAll()
 						.anyRequest().authenticated()
 				)
 				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))

@@ -8,21 +8,21 @@
 		<Console name="Console" target="SYSTEM_OUT" follow="true">
 			<PatternLayout pattern="${LOG_PATTERN}"/>
 		</Console>
-		<RollingFile name="api" fileName="${LOGS}/api.log" filePattern="${LOGS}/archive/api.%d{yyyy-MM-dd}.log.gz">
+		<RandomAccessFile  name="api" fileName="${LOGS}/api.log" filePattern="${LOGS}/archive/api.%d{yyyy-MM-dd}.log.gz" immediateFlush="false" append="false">
 			<PatternLayout pattern="${LOG_PATTERN}"/>
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
 			</Policies>
-		</RollingFile>
+		</RandomAccessFile >
 	</Appenders>
 	<Loggers>
-		<Root level="INFO">
+		<AsyncRoot level="INFO">
 			<AppenderRef ref="api"/>
 			<AppenderRef ref="Console"/>
-		</Root>
-		<logger name="com.tdd.catalog" level="INFO" additivity="false">
-			<appender-ref ref="api" />
-			<appender-ref ref="Console" />
-		</logger>
+		</AsyncRoot>
+		<AsyncLogger  name="com.tdd.catalog" level="INFO" additivity="false">
+			<AppenderRef ref="api" />
+			<AppenderRef ref="Console" />
+		</AsyncLogger >
 	</Loggers>
 </Configuration>
