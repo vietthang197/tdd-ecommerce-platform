@@ -32,6 +32,8 @@ public class LoggingFilter extends OncePerRequestFilter {
         filterChain.doFilter(requestWrapper, responseWrapper);
         long timeTaken = System.currentTimeMillis() - startTime;
 
+        String requestId = requestWrapper.getHeader("X-Request-Id");
+        String clientIP = getClientIP(requestWrapper);
         if (MediaType.APPLICATION_JSON_VALUE.equals(requestWrapper.getContentType())) {
             String requestBody = getStringValue(requestWrapper.getContentAsByteArray(),
                     request.getCharacterEncoding());
@@ -39,13 +41,13 @@ public class LoggingFilter extends OncePerRequestFilter {
                     response.getCharacterEncoding());
 
             logger.info(
-                    "PATH={}; METHOD={}; REQUEST PAYLOAD={}; RESPONSE CODE={}; RESPONSE={}; TIME TAKEN={}",
-                    request.getRequestURI(), request.getMethod(), requestBody, response.getStatus(), responseBody,
+                    "RequestId={}, IP={}, Path={}; Method={}; RequestPayload={}; ResponseCode={}; Response={}; TimeTaken={}",
+                    requestId, clientIP, request.getRequestURI(), request.getMethod(), requestBody, response.getStatus(), responseBody,
                     timeTaken);
         } else {
             logger.info(
-                    "PATH={}; METHOD={}; RESPONSE CODE={}; TIME TAKEN={}",
-                    request.getRequestURI(), request.getMethod(), response.getStatus(),
+                    "RequestId={}, IP={}, Path={}; Method={}; ResponseCode={}; TimeTaken={}",
+                    requestId, clientIP, request.getRequestURI(), request.getMethod(), response.getStatus(),
                     timeTaken);
         }
         responseWrapper.copyBodyToResponse();
@@ -58,5 +60,37 @@ public class LoggingFilter extends OncePerRequestFilter {
             logger.error(e);
         }
         return "";
+    }
+
+    private String getClientIP(ContentCachingRequestWrapper request) {
+        String clientIP = request.getHeader("X-Forwarded-For");
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("Proxy-Client-IP");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_X_FORWARDED");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_X_CLUSTER_CLIENT_IP");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_FORWARDED_FOR");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getHeader("HTTP_FORWARDED");
+        }
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            clientIP = request.getRemoteAddr();
+        }
+        return clientIP;
     }
 }
