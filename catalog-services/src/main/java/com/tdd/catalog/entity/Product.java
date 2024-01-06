@@ -2,6 +2,7 @@ package com.tdd.catalog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tdd.catalog.constant.Constant;
+import com.tdd.catalog.constant.ProductTypeEnum;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -84,15 +85,11 @@ public class Product extends SuperEntity {
     @Column(name = "CURRENCY", nullable = false)
     private String currency;
 
-    // Một product có nhiều sku, mỗi sku nếu không set price thì nó sẽ lấy default_price của product
+    // Giá bán thường của sản phẩm
     @Column(name = "DEFAULT_PRICE")
-    private BigDecimal defaultPrice;
+    private BigDecimal regularPrice;
 
-    // Giá bán lẻ sản phẩm, cột này chỉ dùng để hiển thị, không nên gắn thêm logic nào với nó
-    @Column(name = "MSRP")
-    private BigDecimal msrp;
-
-    // cho biết sản phẩm này đang được giảm giá và đang ở mức nào. Nếu salePrice < defaultPrice thì sẽ lấy salePrice
+    // cho biết sản phẩm này đang được giảm giá và đang ở mức nào. Nếu salePrice < regularPrice thì sẽ lấy salePrice
     @Column(name = "SALE_PRICE")
     private BigDecimal salePrice;
 
@@ -100,6 +97,11 @@ public class Product extends SuperEntity {
     @Column(name = "DESCRIPTION")
     @Lob
     private String description;
+
+    // Mô tả ngắn sản phẩm
+    @Column(name = "SHORT_DESCRIPTION")
+    @Lob
+    private String shortDescription;
 
     // Kích thước chiều sâu của sản phẩm 3 chiều, có liên hệ với dimension unit
     @Column(name = "DEPTH")
@@ -253,10 +255,10 @@ public class Product extends SuperEntity {
     private Integer maxThreshold;
 
     /*Loại sản phẩm, hiện tại đang hỗ trợ common 5 loại product type:
-    * STANDARD,  VARIANT_BASED, BUNDLE, SELECTOR, MERCHANDISING
+    * SIMPLE,  VARIANT, GROUPED, EXTERNAL
     *  */
     @Column(name = "PRODUCT_TYPE")
-    private String productType;
+    private ProductTypeEnum productType;
 
     /*Tính năng này tạm thời chưa phát triển, người dùng có thể customize
     * lại product type của riêng mình, base từ 5 loại ở bên trên
@@ -268,6 +270,7 @@ public class Product extends SuperEntity {
     @Column(name = "TAGS", length = 500)
     private String tags;
 
+    /*Các bin thể của sản phẩm*/
     @OneToMany(cascade= CascadeType.ALL, mappedBy="product", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -280,13 +283,19 @@ public class Product extends SuperEntity {
     @JsonIgnore
     public Set<ProductAsset> productAssets;
 
+    /*Category của sản phẩm*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
     private Set<CategoryProduct> productCategories;
 
+    /*Sản phẩm bị xoá hay chưa*/
     @Column(name = "IS_DELETED")
     @ColumnDefault("'"+ Constant.STR_N +"'")
     private String isDeleted;
+
+    //Số lượng mặt hng có sẵn
+    @Column(name = "QUANTITY_AVAILABLE")
+    private Integer quantityAvailable;
 }

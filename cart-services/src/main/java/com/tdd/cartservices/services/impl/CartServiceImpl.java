@@ -37,9 +37,9 @@ public class CartServiceImpl implements CartService {
             System.out.println("Current Thread name: " + Thread.currentThread().getName() + " is Virtual: " + Thread.currentThread().isVirtual());
             try (BufferedInputStream rd = new BufferedInputStream(Files.newInputStream(Path.of("D:/Downloads/Compressed/Windows.iso")), 8192);
                  BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream("D:/WindowsCopy.iso"))) {
-                byte[] x = new byte[8192];
-                while (rd.read(x, 0, x.length) != -1) {
-                    outputStream.write(x);
+                byte[] byteBuffer = new byte[8192];
+                while (rd.read(byteBuffer, 0, byteBuffer.length) != -1) {
+                    outputStream.write(byteBuffer);
                     outputStream.flush();
                 }
             }

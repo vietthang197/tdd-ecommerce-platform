@@ -10,12 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateGeneralCategoryVM implements Serializable {
+public class UpdateGeneralCategoryVM implements BaseRequest {
 
     @NotBlank(message = "categoryId can not be blank")
     @Size(max = 255, message = "categoryId over size")

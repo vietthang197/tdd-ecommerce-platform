@@ -10,12 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCategoryVM implements Serializable {
+public class CreateCategoryVM implements BaseRequest {
 
     @ValidDate(pattern = DateUtils.DEFAULT_DATE_TIME_FORMAT, message = "activeStartDate không hợp lệ", allowBlank = false)
     private String activeStartDate;

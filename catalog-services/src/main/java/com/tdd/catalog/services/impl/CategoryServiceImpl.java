@@ -64,7 +64,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .taxCode(request.getTaxCode())
                 .metaTitle(request.getMetaTitle())
                 .metaDescription(request.getMetaDescription())
-                .overrideGeneratedUrl(request.getOverrideGeneratedUrl())
                 .isDeleted(Constant.STR_N)
                 .build();
 
@@ -100,7 +99,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setTaxCode(request.getTaxCode());
         category.setMetaTitle(request.getMetaTitle());
         category.setMetaDescription(request.getMetaDescription());
-        category.setOverrideGeneratedUrl(request.getOverrideGeneratedUrl());
         category.setIsDeleted(Constant.STR_N);
 
         categoryRepository.save(category);

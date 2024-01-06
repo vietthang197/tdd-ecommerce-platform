@@ -159,4 +159,8 @@ public class Variant extends SuperEntity {
     /* Mã vạch của sản phẩm */
     @Column(name = "UPC")
     private String upc;
+
+    //Số lượng mặt hng có sẵn
+    @Column(name = "QUANTITY_AVAILABLE")
+    private Integer quantityAvailable;
 }
